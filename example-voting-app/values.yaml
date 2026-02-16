@@ -1,0 +1,14 @@
+replicaCount: 1
+image:
+  repository: "docker/example-voting-app-vote"
+  tag: "latest"
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 80
+
+# Redis Configuration
+redis:
+  repository: redis
+  tag: 8.2.4-alpine3.22
+  port: 6379

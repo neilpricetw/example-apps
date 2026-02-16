@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "example-voting-app.fullname" . }}
+  labels:
+    app: {{ include "example-voting-app.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "example-voting-app.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "example-voting-app.name" . }}
+    spec:
+      containers:
+        - name: example-voting-app
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 80
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
