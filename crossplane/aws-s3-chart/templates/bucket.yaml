@@ -1,0 +1,15 @@
+apiVersion: s3.aws.m.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.bucketName }}
+  namespace: default
+spec:
+  forProvider:
+    region: {{ .Values.region }}
+    forceDestroy: {{ .Values.forceDestroy }}
+    tags:
+      Environment: {{ .Values.environment }}
+      ManagedBy: Crossplane    
+  providerConfigRef:
+    name: {{ .Values.providerConfigName }}
+    kind: ClusterProviderConfig
