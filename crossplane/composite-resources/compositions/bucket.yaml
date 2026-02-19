@@ -1,0 +1,28 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: xbuckets.aws.s3.example.org
+  labels:
+    provider: aws
+spec:
+  compositeTypeRef:
+    apiVersion: example.org/v1alpha1
+    kind: XBucket
+  mode: Pipeline
+  pipeline:
+  - step: patch-and-transform
+    functionRef:
+      name: function-patch-and-transform
+    input:
+      apiVersion: pt.fn.crossplane.io/v1beta1
+      kind: Resources
+      resources:
+      - name: s3-bucket
+        base:
+          apiVersion: s3.aws.m.upbound.io/v1beta1
+          kind: Bucket
+        patches:
+        - fromFieldPath: "spec.region"
+          toFieldPath: "spec.forProvider.region"
+        - fromFieldPath: "spec.tags"
+          toFieldPath: "spec.forProvider.tags"                    

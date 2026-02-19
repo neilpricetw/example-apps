@@ -1,0 +1,50 @@
+apiVersion: apiextensions.crossplane.io/v2
+kind: CompositeResourceDefinition
+metadata:
+  name: xvpcs.example.org
+spec:
+  group: example.org
+  names:
+    kind: XVPC
+    plural: xvpcs
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              id:
+                type: string
+                description: ID of this VPC that other objects will use to refer to it.
+              region:
+                type: string
+                description: The AWS region to deploy the bucket into.
+                default: us-east-1
+              vpcCidrBlock:
+                type: string
+                description: CIDR block for the VPC. 
+              subnet1CidrBlock:
+                type: string
+                description: CIDR block for subnet 1.                                                      
+              tags:
+                type: object
+                description: Key-value pairs to apply as tags to the bucket.
+                additionalProperties:
+                  type: string                
+              compositionSelector:
+                type: object
+                properties:
+                  matchLabels:
+                    type: object
+                    additionalProperties:
+                      type: string
+                description: Selector to match compositions by labels.                
+            required:
+            - id
+            - vpcCidrBlock
+            - subnet1CidrBlock

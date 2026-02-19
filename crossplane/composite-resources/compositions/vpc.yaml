@@ -1,0 +1,69 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  labels:
+    channel: aws
+  name: vpcs.example.org
+spec:
+  compositeTypeRef:
+    apiVersion: example.org/v1alpha1
+    kind: XVPC
+  mode: Pipeline
+  pipeline:
+  - step: patch-and-transform
+    functionRef:
+      name: function-patch-and-transform
+    input:
+      apiVersion: pt.fn.crossplane.io/v1beta1
+      kind: Resources
+      resources:
+
+      - name: vpc
+        base:
+          apiVersion: ec2.aws.m.upbound.io/v1beta1
+          kind: VPC
+          spec:
+            forProvider:
+              enableDnsSupport: true
+              enableDnsHostnames: true
+        patches:
+        - fromFieldPath: "spec.region"
+          toFieldPath: "spec.forProvider.region"
+        - fromFieldPath: "spec.vpcCidrBlock"
+          toFieldPath: "spec.forProvider.cidrBlock"          
+        - fromFieldPath: "spec.tags"
+          toFieldPath: "spec.forProvider.tags"  
+        - type: CombineFromComposite
+          combine:
+            variables:
+              - fromFieldPath: "spec.id"
+            strategy: string
+            string:
+              fmt: "%s-vpc"
+          toFieldPath: "spec.forProvider.tags[Name]"                 
+
+      - name: subnet1
+        base:
+          apiVersion: ec2.aws.m.upbound.io/v1beta1
+          kind: Subnet
+          spec:
+            forProvider:
+              vpcIdSelector:
+                matchControllerRef: true
+
+        patches:       
+        - fromFieldPath: "spec.region"
+          toFieldPath: "spec.forProvider.region"        
+        - fromFieldPath: "spec.subnet1CidrBlock"
+          toFieldPath: "spec.forProvider.cidrBlock"          
+        - fromFieldPath: "spec.tags"
+          toFieldPath: "spec.forProvider.tags"
+        - type: CombineFromComposite
+          combine:
+            variables:
+              - fromFieldPath: "spec.id"
+            strategy: string
+            string:
+              fmt: "%s-subnet1"
+          toFieldPath: "spec.forProvider.tags[Name]"                   
+    

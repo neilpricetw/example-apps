@@ -1,0 +1,46 @@
+apiVersion: apiextensions.crossplane.io/v2
+kind: CompositeResourceDefinition
+metadata:
+  name: xbuckets.example.org
+spec:
+  group: example.org
+  names:
+    kind: XBucket
+    plural: xbuckets
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              id:
+                type: string
+              acl:
+                type: string   
+                description: The canned ACL to apply to the bucket.
+                default: private                         
+              region:
+                type: string
+                description: The AWS region to deploy the bucket into.
+                default: us-east-1
+              tags:
+                type: object
+                description: Key-value pairs to apply as tags to the bucket.
+                additionalProperties:
+                  type: string
+              compositionSelector:
+                type: object
+                properties:
+                  matchLabels:
+                    type: object
+                    additionalProperties:
+                      type: string
+                description: Selector to match compositions by labels.
+            required:
+            - region

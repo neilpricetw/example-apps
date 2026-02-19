@@ -1,0 +1,16 @@
+apiVersion: example.org/v1alpha1
+kind: XVPC
+metadata:
+  name: test-solution
+  namespace: default
+spec:
+  id: "test-solution"
+  region: us-west-2
+  vpcCidrBlock: 192.168.0.0/24  
+  subnet1CidrBlock: 192.168.0.0/28
+  tags:
+    Name: test-solution
+    Environment: dev
+  compositionSelector:
+    matchLabels:
+      channel: aws  

@@ -1,0 +1,11 @@
+apiVersion: example.org/v1alpha1
+kind: XBucket
+metadata:
+  name: my-bucket
+spec:
+  region: us-west-2
+  tags:
+    Environment: dev  
+  compositionSelector:
+    matchLabels:
+      provider: aws
