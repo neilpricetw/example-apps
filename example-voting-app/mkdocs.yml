@@ -1,4 +1,11 @@
-site_name: Documentation Site
+site_name: Voting App Service Documentation
+
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - API Reference: N/A
+
 docs_dir: docs
+
 plugins:
-  - techdocs-core
+  - techdocs-core # This plugin is required for Backstage compatibility

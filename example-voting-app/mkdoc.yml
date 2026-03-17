@@ -1,9 +1,0 @@
-site_name: Voting App Service Documentation
-
-nav:
-  - Home: index.md
-  - Architecture: architecture.md
-  - API Reference: N/A
-
-plugins:
-  - techdocs-core # This plugin is required for Backstage compatibility
