@@ -36,7 +36,7 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 ## ArgoCD UI Repo/Application Setup
 
 1. Login with the admin password
-2. Add a new repository
+2. Add a new repository (use ssh and add a private key)
 3. Add a new application
 4. Select your repository you added in step 2
 5. Set the path to the application you want to deploy (e.g. `example-voting-app`)
