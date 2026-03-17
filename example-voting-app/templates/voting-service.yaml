@@ -4,6 +4,7 @@ metadata:
   name: {{ include "example-voting-app.fullname" . }}
   labels:
     app: {{ include "example-voting-app.name" . }}
+    backstage.io/kubernetes-id: {{ .Values.backstage.label }}   
 spec:
   type: {{ .Values.service.type }}
   ports:

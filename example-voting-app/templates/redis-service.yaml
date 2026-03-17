@@ -4,6 +4,7 @@ metadata:
   name: redis
   labels:
     app: redis
+    backstage.io/kubernetes-id: {{ .Values.backstage.label }}  
 spec:
   type: ClusterIP
   ports:
@@ -12,5 +13,4 @@ spec:
       protocol: TCP
       name: redis
   selector:
-    app: redis
-    backstage.io/kubernetes-id: {{ .Values.backstage.label }}    
+    app: redis  
