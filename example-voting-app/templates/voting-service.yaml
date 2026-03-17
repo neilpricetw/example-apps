@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ include "example-voting-app.fullname" . }}
   annotations:
-    backstage.io/kubernetes-id: {{ .Values.backstage-annotation-and-label }}    
+    backstage.io/kubernetes-id: {{ .Values.backstage.annotation }}
   labels:
     app: {{ include "example-voting-app.name" . }}
 spec:
@@ -15,4 +15,4 @@ spec:
       name: http
   selector:
     app: {{ include "example-voting-app.name" . }}
-    backstage.io/kubernetes-id: {{ .Values.backstage-annotation-and-label }}    
+    backstage.io/kubernetes-id: {{ .Values.backstage.label }}    

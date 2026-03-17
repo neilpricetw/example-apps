@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: redis
   annotations:
-    backstage.io/kubernetes-id: {{ .Values.backstage-annotation-and-label }}  
+    backstage.io/kubernetes-id: {{ .Values.backstage.annotation }}
 spec:
   selector:
     matchLabels:
@@ -12,7 +12,7 @@ spec:
     metadata:
       labels:
         app: redis
-        backstage.io/kubernetes-id: {{ .Values.backstage-annotation-and-label }}        
+        backstage.io/kubernetes-id: {{ .Values.backstage.label }}      
     spec:
       containers:
       - name: redis
