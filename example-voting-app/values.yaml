@@ -6,6 +6,7 @@ image:
 service:
   type: ClusterIP
   port: 80
+backstage-annotation-and-label: examples-service
 
 # Redis Configuration
 redis:
