@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "example-voting-app.fullname" . }}
-  annotations:
-    backstage.io/kubernetes-id: {{ .Values.backstage.annotation }}
   labels:
     app: {{ include "example-voting-app.name" . }}
 spec:

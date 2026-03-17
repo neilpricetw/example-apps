@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
-  annotations:
-    backstage.io/kubernetes-id: {{ .Values.backstage.annotation }}
 spec:
   selector:
     matchLabels:
